@@ -1,9 +1,11 @@
-import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity, TouchableHighlight } from "react-native";
+import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity, TouchableHighlight, Dimensions } from "react-native";
 import { styles } from '@/styles/auth.styles';
 import Background from "@/components/Background";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 const logo = require('@/assets/images/logo.png');
+const { width } = Dimensions.get('window');
+const logoSize = width * 0.8
 
 export default function Index() {
   return (
@@ -76,9 +78,9 @@ export const loginStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    width: "75%",
-    height: "75%",
-    borderRadius: 150,
+    width: logoSize,
+    height: logoSize,
+    borderRadius: logoSize / 2,
     borderWidth: 5,
     borderColor: 'white',
     backgroundColor: 'white',
