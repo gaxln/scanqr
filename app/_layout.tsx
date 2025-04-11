@@ -8,9 +8,10 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    'PoppinsRegular': require('../node_modules/@expo-google-fonts/poppins/400Regular/Poppins_400Regular.ttf'),
-    'PoppinsSemiBold': require('../node_modules/@expo-google-fonts/poppins/600SemiBold/Poppins_600SemiBold.ttf'),
-    'PoppinsBold': require('../node_modules/@expo-google-fonts/poppins/700Bold/Poppins_700Bold.ttf'),
+    'PrimaryRegular': require('@/node_modules/@expo-google-fonts/geist/400Regular/Geist_400Regular.ttf'),
+    'PrimaryMedium': require('@/node_modules/@expo-google-fonts/geist/500Medium/Geist_500Medium.ttf'),
+    'PrimarySemiBold': require('@/node_modules/@expo-google-fonts/geist/600SemiBold/Geist_600SemiBold.ttf'),
+    'PrimaryBold': require('@/node_modules/@expo-google-fonts/geist/700Bold/Geist_700Bold.ttf'),
   })
 
   useEffect(() => {
