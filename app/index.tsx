@@ -1,10 +1,10 @@
-import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity, TouchableHighlight, Dimensions } from "react-native";
+import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity, TouchableHighlight, Dimensions, Keyboard, Animated } from "react-native";
 import { styles } from '@/styles/auth.styles';
 import Background from "@/components/Background";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 const logo = require('@/assets/images/logo.png');
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 const logoSize = width * 0.8
 
 export default function Index() {
@@ -17,21 +17,24 @@ export default function Index() {
 
       <View style={loginStyles.loginContainer}>
         <View style={loginStyles.loginForm}>
-          <Text style={[styles.title, { marginHorizontal: 20, marginTop: 20, }]}>Iniciar Sesión</Text>
+          <Text style={[styles.title, { marginHorizontal: 20, marginTop: 30, fontSize: 30, marginBottom: 10, }]}>Iniciar Sesión</Text>
 
           <View style={loginStyles.loginSection}>
-            <FontAwesome6 name="user-large" size={15} styles={loginStyles.icon} />
-            <TextInput placeholder="Usuario" style={loginStyles.textInput} multiline={false} scrollEnabled numberOfLines={1} />
+            <FontAwesome6 name="user-large" size={20} color={"#fff"} styles={loginStyles.icon} />
+            <TextInput placeholder="Usuario" style={loginStyles.textInput} placeholderTextColor={'#fff'} multiline={false} scrollEnabled numberOfLines={1} />
           </View>
 
           <View style={loginStyles.loginSection}>
-            <FontAwesome6 name="lock" size={15} styles={loginStyles.icon} />
-            <TextInput placeholder={"Contraseña"} style={loginStyles.textInput} secureTextEntry maxLength={50} multiline={false} numberOfLines={1} />
+            <FontAwesome6 name="lock" size={20} color={"#fff"} styles={loginStyles.icon} />
+            <TextInput placeholder={"Contraseña"} style={loginStyles.textInput} placeholderTextColor={'#fff'} secureTextEntry maxLength={50} multiline={false} numberOfLines={1} />
           </View>
 
-          <TouchableOpacity style={[loginStyles.button, loginStyles.buttonLogIn]}><Text style={loginStyles.buttonText}>Iniciar Sesión</Text></TouchableOpacity>
+          <TouchableOpacity style={[loginStyles.button, loginStyles.buttonLogIn]}>
+            <Text style={[loginStyles.buttonText, { color: '#000', fontSize: 20, fontFamily: 'PrimaryMedium' }]}>Iniciar Sesión</Text>
+          </TouchableOpacity>
+
           <View style={loginStyles.separator} />
-          <TouchableOpacity style={[loginStyles.button, loginStyles.buttonRegister]}><Text style={[loginStyles.buttonText, { fontFamily: 'PoppinsRegular' }]}>Registarse</Text></TouchableOpacity>
+          <TouchableOpacity style={[loginStyles.button, loginStyles.buttonRegister]}><Text style={[loginStyles.buttonText, { fontFamily: 'PrimaryRegular' }]}>Registrarse</Text></TouchableOpacity>
         </View>
       </View >
     </>
@@ -44,9 +47,11 @@ export const loginStyles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   loginForm: {
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
     backgroundColor: '#01204A',
+    borderWidth: 1,
+    borderColor: '#012',
     flexDirection: 'column',
     minHeight: "50%",
   },
@@ -54,16 +59,16 @@ export const loginStyles = StyleSheet.create({
     flex: 1,
     minHeight: 50,
     fontSize: 16,
-    fontFamily: 'PoppinsRegular',
-    color: '#000',
+    fontFamily: 'PrimaryRegular',
+    color: '#fff',
     marginLeft: 5,
-    backgroundColor: 'white',
+    backgroundColor: '#001839',
   },
   loginSection: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#001839',
     borderRadius: 10,
     marginTop: 10,
     paddingHorizontal: 10,
@@ -81,27 +86,29 @@ export const loginStyles = StyleSheet.create({
     width: logoSize,
     height: logoSize,
     borderRadius: logoSize / 2,
-    borderWidth: 5,
+    borderWidth: 2,
     borderColor: 'white',
     backgroundColor: 'white',
   },
 
   button: {
-    marginTop: 20,
+    marginTop: 15,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
     marginHorizontal: 25,
-    minHeight: '15%',
   },
   buttonLogIn: {
     backgroundColor: '#AABE29',
+    borderRadius: width * 0.2,
+    minHeight: height * 0.06,
   },
   buttonRegister: {
     backgroundColor: '#023377',
+    minHeight: height * 0.07,
   },
   buttonText: {
-    fontFamily: 'PoppinsBold',
+    fontFamily: 'PrimaryRegular',
     color: 'white',
     fontSize: 25,
   },
