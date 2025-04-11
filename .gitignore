@@ -28,6 +28,9 @@ yarn-error.*
 # firebase
 firebaseConfig.ts
 
+/android
+/ios
+
 # macOS
 .DS_Store
 *.pem
