@@ -31,6 +31,8 @@ firebaseConfig.ts
 /android
 /ios
 
+.env
+
 # macOS
 .DS_Store
 *.pem
