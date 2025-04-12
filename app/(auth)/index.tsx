@@ -62,7 +62,7 @@ export default function Index() {
           <Text style={[fonts.bold, { marginTop: 15, fontSize: 30, marginBottom: 10, color: 'white' }]}>Iniciar Sesión</Text>
 
           <View style={styles.loginSection}>
-            <FontAwesome6 name="user-large" size={20} color={"#fff"} styles={styles.icon} />
+            <FontAwesome6 name="user-large" size={20} color={"#fff"} />
             <TextInput placeholder="Email" onChangeText={setEmailAddress} style={[styles.textInput]} autoCorrect={false} placeholderTextColor={'#fff'}
               autoFocus
               autoCapitalize='none'
