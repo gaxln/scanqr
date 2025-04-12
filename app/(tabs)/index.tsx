@@ -1,11 +1,61 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import SignOutButton from '@/components/SignOutButton'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity
+} from 'react-native'
+import { CameraView, useCameraPermissions } from 'expo-camera'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { useEffect, useState } from 'react';
 
 export default function QRScannerScreen() {
+  const [cameraPermission, requestCameraPermission] = useCameraPermissions();
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    requestPermission();
+  }, [])
+
+  const requestPermission = async () => {
+    if (!cameraPermission?.granted) {
+      await requestCameraPermission();
+    }
+  }
+
+  if (!cameraPermission) {
+    return <View><Text>Verificando permisos de la cámara...</Text></View>
+  }
+
+  if (!cameraPermission.granted) {
+    return (
+      <View>
+        <Text>Necesitamos el permiso de la cámara para usar el escaner</Text>
+        <TouchableOpacity onPress={requestCameraPermission}>
+          <Text>Conceder permiso</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
   return (
-    <View>
-      <Text>QRScannerScreen</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <CameraView
+        facing='back'
+        style={styles.camera}
+      >
+      </CameraView>
+    </SafeAreaView >
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  camera: {
+    flex: 1,
+    height: '100%',
+    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 20,
+  }
+})
