@@ -24,6 +24,24 @@ const logo = require('@/assets/images/logo.png');
 const { width, height } = Dimensions.get('window');
 const logoSize = width * 0.8
 
+function getErrorMessage(err: any): string {
+  const code = err.errors?.[0]?.code;
+  switch (code) {
+    case 'form_identifier_not_found':
+      return 'Correo electronico no encontrado'
+    case 'form_param_format_invalid':
+      return 'Correo electronico incorrecto'
+    case 'form_conditional_param_missing':
+      return 'Ingresa un correo'
+    case 'form_param_nil':
+      return 'Ingresa una contraseña'
+    case 'form_password_incorrect':
+      return 'Contraseña incorrecta'
+    default:
+      return `Not implemented yet ${code}`
+  }
+}
+
 export default function Index() {
   const { signIn, setActive, isLoaded } = useSignIn();
   const router = useRouter();
@@ -45,10 +63,14 @@ export default function Index() {
         await setActive({ session: signInAttempt.createdSessionId })
         router.replace('/')
       } else {
-        console.error(JSON.stringify(signInAttempt, null, 2))
+        alert(JSON.stringify(signInAttempt))
       }
-    } catch (err) {
-      console.error(JSON.stringify(err, null, 2))
+    } catch (err: any) {
+      Toast.show({
+        type: 'error',
+        text1: getErrorMessage(err)
+      });
+      console.log(err.errors[0])
     }
   }
 
