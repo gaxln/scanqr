@@ -9,13 +9,15 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.gaxln.trackP"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/logo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.gaxln.trackP"
     },
     "web": {
       "bundler": "metro",
@@ -34,16 +36,33 @@
         }
       ],
       [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera"
+        }
+      ],
+      [
         "expo-font",
         {
           "fonts": [
-            "node_modules/@expo-google-fonts/poppins/400Regular/Poppins_400Regular.ttf"
+            "node_modules/@expo-google-fonts/geist/400Regular/Geist_400Regular.ttf",
+            "node_modules/@expo-google-fonts/geist/500Medium/Geist_500Medium.ttf",
+            "node_modules/@expo-google-fonts/geist/600SemiBold/Geist_600SemiBold.ttf",
+            "node_modules/@expo-google-fonts/geist/700Bold/Geist_700Bold.ttf"
           ]
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "4eaac828-0d8d-4001-826c-f5b17fa6c562"
+      }
     }
   }
 }
