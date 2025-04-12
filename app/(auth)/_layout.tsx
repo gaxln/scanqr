@@ -1,5 +1,6 @@
 import { Redirect, Stack } from "expo-router";
 import { useAuth } from "@clerk/clerk-expo";
+import { Colors } from "@/constants/Colors";
 
 export default function AuthRoutesLayout() {
   const { isSignedIn } = useAuth();
@@ -8,7 +9,11 @@ export default function AuthRoutesLayout() {
     return <Redirect href={'/(tabs)'} />
   }
 
-  return (<Stack>
+  return (<Stack screenOptions={{
+    contentStyle: {
+      backgroundColor: Colors.background,
+    }
+  }}>
     <Stack.Screen name="index" options={{ headerShown: false }} />
   </Stack>)
 }
