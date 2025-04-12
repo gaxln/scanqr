@@ -12,7 +12,7 @@ import {
 import { fonts } from '@/styles/styles';
 import Background from "@/components/Background";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Toast from 'react-native-toast-message'
 import { toastConfig } from '../../toastConfig'
 import { Colors } from "@/constants/Colors"
@@ -30,6 +30,8 @@ export default function Index() {
 
   const [emailAddress, setEmailAddress] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+
+  const refPasswordInput = useRef<TextInput>(null);
 
   const onSignInPress = async () => {
     if (!isLoaded) return;
@@ -63,13 +65,20 @@ export default function Index() {
 
           <View style={styles.loginSection}>
             <FontAwesome6 name="user-large" size={20} color={"#fff"} />
-            <TextInput placeholder="Email" onChangeText={setEmailAddress} style={[styles.textInput]} autoCorrect={false} placeholderTextColor={'#fff'}
+            <TextInput
+              placeholder="Email"
+              onChangeText={setEmailAddress}
+              style={[styles.textInput]}
+              autoCorrect={false}
+              placeholderTextColor={'#fff'}
               autoFocus
               autoCapitalize='none'
               autoComplete='email'
               keyboardType='email-address'
+              onSubmitEditing={() => refPasswordInput.current?.focus()}
               multiline={false}
               numberOfLines={1}
+              returnKeyType="next"
             />
           </View>
 
@@ -77,6 +86,7 @@ export default function Index() {
             <View style={styles.loginSection}>
               <FontAwesome6 name="lock" size={20} color={"#fff"} />
               <TextInput
+                ref={refPasswordInput}
                 placeholder={"Contraseña"}
                 onChangeText={setPassword}
                 style={[styles.textInput]}
@@ -85,6 +95,8 @@ export default function Index() {
                 maxLength={50}
                 multiline={false}
                 numberOfLines={1}
+                autoComplete='password'
+                onSubmitEditing={onSignInPress}
               />
             </View>
 
@@ -156,7 +168,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-    marginHorizontal: 25,
+    marginHorizontal: 10,
   },
   buttonLogIn: {
     backgroundColor: Colors.secondary,
@@ -176,6 +188,5 @@ export const styles = StyleSheet.create({
     marginTop: 25,
     borderColor: 'white',
     borderBottomWidth: StyleSheet.hairlineWidth * 2.5,
-    marginHorizontal: 15,
   },
 })
