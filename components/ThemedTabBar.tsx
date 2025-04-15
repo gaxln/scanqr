@@ -2,14 +2,14 @@ import { View, Text, Pressable } from 'react-native'
 import React from 'react'
 import { Colors } from '@/constants/Colors'
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6'
+import FontAwesome from '@expo/vector-icons/FontAwesome'
 import { fonts } from '@/styles/styles'
 
 export default function ThemedTabBar(props: BottomTabBarProps) {
   return (
     <View style={{
       flexDirection: 'row',
-      backgroundColor: Colors.background,
+      backgroundColor: Colors.primary,
       height: 70,
     }}>
       {props.state.routes.map((route, index) => {
@@ -24,9 +24,9 @@ export default function ThemedTabBar(props: BottomTabBarProps) {
         const isFocused = props.state.index === index;
 
         const iconMap = {
-          index: 'chart-pie',
+          index: 'pie-chart',
           scanner: 'qrcode',
-          profile: 'user-large',
+          profile: 'user',
         }
 
         const iconName = iconMap[route.name] || 'circle-question'
@@ -44,13 +44,14 @@ export default function ThemedTabBar(props: BottomTabBarProps) {
           <Pressable
             key={route.key}
             onPress={onPress}
+            android_ripple={null}
             style={({ pressed }) => [
               {
                 flex: isFocused ? 3 : 1,
                 flexDirection: 'row',
                 justifyContent: 'center',
                 alignItems: 'center',
-                backgroundColor: isFocused ? Colors.secondary : Colors.background_400,
+                backgroundColor: isFocused ? Colors.surface : Colors.surface_200,
                 borderRadius: 20,
                 marginVertical: 15,
                 marginHorizontal: 10,
@@ -58,13 +59,13 @@ export default function ThemedTabBar(props: BottomTabBarProps) {
               },
             ]}
           >
-            <FontAwesome6
+            <FontAwesome
               name={iconName}
               size={20}
-              color={isFocused ? '#fff' : Colors.background_200}
+              color={isFocused ? Colors.primary : Colors.text_surface}
             />
             {isFocused && (
-              <Text style={[fonts.medium, { color: '#fff', marginLeft: 8, fontSize: 14 }]}>
+              <Text style={[fonts.medium, { color: Colors.primary, marginLeft: 8, fontSize: 14 }]}>
                 {label}
               </Text>
             )}

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "scanqr",
-    "slug": "scanqr",
+    "name": "trackp",
+    "slug": "trackp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -10,14 +10,18 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.gaxln.trackP"
+      "bundleIdentifier": "com.gaxln.trackp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/logo.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.gaxln.trackP"
+      "package": "com.gaxln.trackp",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -61,8 +65,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "4eaac828-0d8d-4001-826c-f5b17fa6c562"
+        "projectId": "511fed6e-5d05-4547-b332-b25545725b70"
       }
-    }
+    },
+    "owner": "gaxln"
   }
 }

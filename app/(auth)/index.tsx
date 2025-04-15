@@ -10,8 +10,7 @@ import {
 } from "react-native";
 
 import { fonts } from '@/styles/styles';
-import Background from "@/components/Background";
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useRef, useState } from "react";
 import Toast from 'react-native-toast-message'
 import { toastConfig } from '../../toastConfig'
@@ -21,8 +20,9 @@ import { useSignIn } from "@clerk/clerk-expo";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const logo = require('@/assets/images/logo.png');
+const footer_img = require('@/assets/images/ecopetrol_logo.png')
 const { width, height } = Dimensions.get('window');
-const logoSize = width * 0.8
+const logoSize = width * 0.6
 
 function getErrorMessage(err: any): string {
   const code = err.errors?.[0]?.code;
@@ -38,7 +38,7 @@ function getErrorMessage(err: any): string {
     case 'form_password_incorrect':
       return 'Contraseña incorrecta'
     default:
-      return `Not implemented yet ${code}`
+      return `${code}`
   }
 }
 
@@ -76,19 +76,15 @@ export default function Index() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Background />
-      <View style={styles.logoContainer}>
-        <Image source={logo} resizeMode="contain" style={styles.logo} />
-      </View>
-
       <View style={styles.loginContainer}>
+        <Image source={logo} resizeMode="contain" style={styles.logo} />
         <View style={styles.loginForm}>
-          <Text style={[fonts.bold, { marginTop: 15, fontSize: 30, marginBottom: 10, color: 'white' }]}>Iniciar Sesión</Text>
+          <Text style={[fonts.bold, { marginTop: 15, fontSize: 30, marginBottom: 10, color: Colors.surface, textAlign: 'center' }]}>Iniciar Sesión</Text>
 
           <View style={styles.loginSection}>
-            <FontAwesome6 name="user-large" size={20} color={"#fff"} />
+            <FontAwesome name="envelope" size={20} color={Colors.text_surface} />
             <TextInput
-              placeholder="Email"
+              placeholder="Correo Electrónico"
               onChangeText={setEmailAddress}
               style={[styles.textInput]}
               autoCorrect={false}
@@ -106,7 +102,7 @@ export default function Index() {
 
           <KeyboardAvoidingView behavior='padding'>
             <View style={styles.loginSection}>
-              <FontAwesome6 name="lock" size={20} color={"#fff"} />
+              <FontAwesome name="key" size={20} color={Colors.text_surface} />
               <TextInput
                 ref={refPasswordInput}
                 placeholder={"Contraseña"}
@@ -126,11 +122,13 @@ export default function Index() {
               <Text style={[styles.buttonText, fonts.semiBold]}>Iniciar Sesión</Text>
             </TouchableOpacity>
 
-            <View style={styles.separator} />
-            <TouchableOpacity onPress={() => { }} style={[styles.button, styles.buttonRegister]}>
+            <TouchableOpacity onPress={() => { router.push("/(auth)/signUp") }} style={[styles.button, styles.buttonRegister]}>
               <Text style={[styles.buttonText, fonts.regular]}>Registrarse</Text>
             </TouchableOpacity>
           </KeyboardAvoidingView>
+          <View style={styles.img_wrapper}>
+            <Image source={footer_img} resizeMode="contain" style={styles.footer_logo} />
+          </View>
         </View>
       </View >
       <Toast config={toastConfig} topOffset={20} />
@@ -141,40 +139,31 @@ export default function Index() {
 export const styles = StyleSheet.create({
   loginContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   loginForm: {
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40,
-    backgroundColor: Colors.background,
-    borderWidth: 1,
-    borderColor: '#012',
-    flexDirection: 'column',
-    padding: 20,
+    paddingHorizontal: 20,
+    width: '100%',
   },
   textInput: {
     ...fonts.regular,
     flex: 1,
-    minHeight: 50,
+    minHeight: 55,
     fontSize: 16,
     color: '#fff',
     marginLeft: 10,
-    backgroundColor: Colors.background_200,
+    backgroundColor: Colors.surface,
   },
   loginSection: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.background_200,
+    backgroundColor: Colors.surface,
     borderRadius: 10,
     marginTop: 10,
     paddingHorizontal: 10,
     marginHorizontal: 2,
-  },
-  logoContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   logo: {
     width: logoSize,
@@ -184,31 +173,33 @@ export const styles = StyleSheet.create({
     borderColor: 'white',
     backgroundColor: 'white',
   },
-
+  footer_logo: {
+    width: 150,
+    height: 150,
+  },
+  img_wrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   button: {
-    marginTop: 15,
+    marginTop: 10,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
     marginHorizontal: 10,
   },
   buttonLogIn: {
-    backgroundColor: Colors.secondary,
+    backgroundColor: Colors.surface,
     borderRadius: width * 0.2,
     padding: 8,
 
   },
   buttonRegister: {
-    backgroundColor: Colors.background_400,
+    backgroundColor: Colors.primary_200,
     padding: 10,
   },
   buttonText: {
-    color: 'white',
+    color: Colors.primary,
     fontSize: 25,
-  },
-  separator: {
-    marginTop: 25,
-    borderColor: 'white',
-    borderBottomWidth: StyleSheet.hairlineWidth * 2.5,
   },
 })
