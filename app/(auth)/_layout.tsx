@@ -11,7 +11,7 @@ export default function AuthRoutesLayout() {
 
   return (<Stack screenOptions={{
     contentStyle: {
-      backgroundColor: Colors.background,
+      backgroundColor: Colors.primary,
     }
   }}>
     <Stack.Screen name="index" options={{ headerShown: false }} />
