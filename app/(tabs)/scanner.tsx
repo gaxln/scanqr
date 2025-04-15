@@ -4,13 +4,15 @@ import {
   StyleSheet,
   TouchableOpacity
 } from 'react-native'
-import { CameraView, useCameraPermissions } from 'expo-camera'
+import { BarcodeScanningResult, CameraView, useCameraPermissions } from 'expo-camera'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useEffect, useState } from 'react';
+import { fonts } from '@/styles/styles';
 
 export default function QRScannerScreen() {
   const [cameraPermission, requestCameraPermission] = useCameraPermissions();
   const [loading, setLoading] = useState<boolean>(true);
+  const [scannedQr, setScannedQr] = useState<boolean>(false);
 
   useEffect(() => {
     requestPermission();
@@ -23,7 +25,9 @@ export default function QRScannerScreen() {
   }
 
   if (!cameraPermission) {
-    return <View><Text>Verificando permisos de la cámara...</Text></View>
+    return <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}><Text style={fonts.medium
+
+    }>Verificando permisos de la cámara...</Text></View>
   }
 
   if (!cameraPermission.granted) {
@@ -37,10 +41,22 @@ export default function QRScannerScreen() {
     )
   }
 
+  const onBarcodeScannedCallback = (scanningResult: BarcodeScanningResult) => {
+    setScannedQr(true)
+    const parts = scanningResult.data.split("_");
+    const tag = parts[0];
+    const name = parts.slice(1).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+    alert(`${tag} ${name}`)
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <CameraView
         facing='back'
+        barcodeScannerSettings={{
+          barcodeTypes: ["qr"],
+        }}
+        onBarcodeScanned={scannedQr ? undefined : onBarcodeScannedCallback}
         style={styles.camera}
       >
       </CameraView>
